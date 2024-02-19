@@ -12,7 +12,6 @@ export default function ResidentSubRoute() {
 
   useEffect(() => {
     fetchCharacter(id).then((_resident) => {
-      console.log("fetched char", _resident);
       setResident(_resident.character as Character);
 
       getNotes(_resident.character?.id as string);
@@ -21,7 +20,6 @@ export default function ResidentSubRoute() {
 
   const getNotes = (id: string) => {
     const _notes = window.localStorage.getItem(`characterNotes:${id}`);
-    console.log("get notes", notes);
     setNotes(_notes ?? "");
   };
 
@@ -29,7 +27,6 @@ export default function ResidentSubRoute() {
     if (!notes) {
       notes = "";
     }
-    console.log("updating notes", notes);
     window.localStorage.setItem(`characterNotes:${id}`, notes);
     //localStorage()
   };

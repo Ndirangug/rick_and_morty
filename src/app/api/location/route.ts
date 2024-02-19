@@ -23,7 +23,6 @@ export async function GET(request: NextRequest) {
                 name: character
             }
             const charactersData = await gqlRequest(rickAndMortyEndpoint, LocationsByCharacterQueryDocument, variables)
-            console.log("charctersData", JSON.stringify(charactersData))
             locations = transformCharactersResponseToLocation(charactersData.characters as Characters)
 
         } else if (episode) {
@@ -32,7 +31,6 @@ export async function GET(request: NextRequest) {
                 name: episode
             }
             const episodesData = await gqlRequest(rickAndMortyEndpoint, LocationsByEpisodeQueryDocument, variables)
-            console.log("episodesData", episodesData)
             locations = transformEpisodesResponseToLocation(episodesData.episodes as Episodes)
         } else {
             const variables: LocationsQueryQueryVariables = {

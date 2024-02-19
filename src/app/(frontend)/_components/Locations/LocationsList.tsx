@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { Accordion } from "react-accessible-accordion";
 import { useInView } from "react-intersection-observer";
+import SearchComponent, { SearchEventDetail } from "./SearchComponent";
 
 export default function LocationsList() {
   const [locations, setLocations] = useState<gqlLocation[]>([]);
@@ -24,7 +25,6 @@ export default function LocationsList() {
       (_locations) => {
         setCurrentPageInfo(_locations.locations?.info as Info);
         setLocations(_locations.locations?.results as gqlLocation[]);
-        console.log("locations fetched", _locations.locations);
       }
     );
   }, []);
@@ -36,7 +36,6 @@ export default function LocationsList() {
   }, [inView]);
 
   const fetchMore = () => {
-    console.log("fetch more");
     setPage(page + 1);
 
     fetchLocations(locationName, characterName, episodeName, page).then(
@@ -50,9 +49,44 @@ export default function LocationsList() {
       }
     );
   };
+
+  const onSearchUpdate = (e: CustomEvent<SearchEventDetail>) => {
+    switch (e.detail.category) {
+      case "character":
+        setCharacterName(e.detail.searchTerm);
+        setLocationName("");
+        setEpisodeName("");
+        setPage(1);
+        break;
+      case "episode":
+        setEpisodeName(e.detail.searchTerm);
+        setLocationName("");
+        setEpisodeName("");
+        setPage(1);
+        break;
+      default:
+        setLocationName(e.detail.searchTerm);
+        setCharacterName("");
+        setEpisodeName("");
+        setPage(1);
+    }
+  };
+
+  useEffect(() => {
+    setLocations([]);
+    fetchLocations(locationName, characterName, episodeName, page).then(
+      (_locations) => {
+        setCurrentPageInfo(_locations.locations?.info as Info);
+        setLocations(_locations.locations?.results as gqlLocation[]);
+      }
+    );
+  }, [characterName, episodeName, locationName, page]);
+
   return (
     <div className="locations-list  h-[100%] overflow-auto">
       <p className="text-xl font-extrabold">Locations</p>
+
+      <SearchComponent onSearch={onSearchUpdate} />
       <Accordion allowZeroExpanded={true}>
         {locations.slice(0).map((_location) => (
           <LocationCard

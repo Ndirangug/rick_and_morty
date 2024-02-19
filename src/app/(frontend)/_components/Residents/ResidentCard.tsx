@@ -11,7 +11,6 @@ export default function ResidentCard({ resident }: Props) {
   const router = useRouter();
 
   const handleClick = () => {
-    console.log("click character card");
     router.push(`/resident/${resident.id}`);
   };
 

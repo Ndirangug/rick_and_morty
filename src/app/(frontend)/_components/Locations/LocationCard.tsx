@@ -19,7 +19,6 @@ export default function LocationCard({ location }: Props) {
     <AccordionItem className="mb-10">
       <AccordionItemHeading
         onClick={() => {
-          console.log("click accordion");
           setShowResidents(!showResidents);
         }}
       >
