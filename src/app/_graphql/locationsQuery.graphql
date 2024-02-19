@@ -1,0 +1,21 @@
+query LocationsQuery($page: Int, $name: String) {
+  locations(page: $page, filter: { name: $name }) {
+    info {
+      pages
+      count
+      next
+      prev
+    }
+    results {
+      id
+      name
+      type
+      residents {
+        image
+        id
+        name
+        status
+      }
+    }
+  }
+}

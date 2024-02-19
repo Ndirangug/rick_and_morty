@@ -1,0 +1,4 @@
+overwrite: true
+schema: "https://rickandmortyapi.com/graphql"
+documents: ./src/**/*.graphql
+generates: { "./src/app/_graphql/types/": { preset: "client" } }

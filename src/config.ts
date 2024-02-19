@@ -1,0 +1,1 @@
+export const rickAndMortyEndpoint = 'https://rickandmortyapi.com/graphql'
