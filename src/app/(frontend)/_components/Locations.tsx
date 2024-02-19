@@ -6,6 +6,7 @@ import {
   Location as gqlLocation,
 } from "@/app/_graphql/types/graphql";
 import { useEffect, useState } from "react";
+import { Accordion } from "react-accessible-accordion";
 import { useInView } from "react-intersection-observer";
 import LocationCard from "./LocationCard";
 
@@ -55,12 +56,15 @@ export default function Locations() {
     <>
       <div className=" bg-gray-500 bg-opacity-20 px-10 py-10 mt-10 mb-20  h-[90%] rounded-2xl w-full">
         <div className="locations-list  h-[100%] overflow-auto">
-          {locations.slice(0).map((_location) => (
-            <LocationCard
-              key={_location?.id}
-              location={_location as gqlLocation}
-            ></LocationCard>
-          ))}
+          <p className="text-xl font-extrabold">Locations</p>
+          <Accordion allowZeroExpanded={true}>
+            {locations.slice(0).map((_location) => (
+              <LocationCard
+                key={_location?.id}
+                location={_location as gqlLocation}
+              ></LocationCard>
+            ))}
+          </Accordion>
 
           {currentPageInfo?.next && <div ref={ref}>Loading...</div>}
         </div>
