@@ -1,0 +1,23 @@
+query LocationsByEpisodeQuery($page: Int, $name: String) {
+  episodes(page: $page, filter: { name: $name }) {
+    info {
+      pages
+      count
+      next
+      prev
+    }
+    results {
+      characters {
+        image
+        id
+        name
+        status
+        location {
+          id
+          name
+          type
+        }
+      }
+    }
+  }
+}

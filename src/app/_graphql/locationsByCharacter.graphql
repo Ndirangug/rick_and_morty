@@ -1,0 +1,21 @@
+query LocationsByCharacterQuery($page: Int, $name: String) {
+  characters(page: $page, filter: { name: $name }) {
+    info {
+      pages
+      count
+      next
+      prev
+    }
+    results {
+      image
+      id
+      name
+      status
+      location {
+        id
+        name
+        type
+      }
+    }
+  }
+}
