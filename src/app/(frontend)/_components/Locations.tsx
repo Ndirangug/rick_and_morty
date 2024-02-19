@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Info,
   LocationsQueryQuery,
   Location as gqlLocation,
 } from "@/app/_graphql/types/graphql";
@@ -16,10 +17,12 @@ export default function Locations() {
   const [episodeName, setEpisodeName] = useState("");
   const [page, setPage] = useState(1);
   const { ref, inView } = useInView();
+  const [currentPageInfo, setCurrentPageInfo] = useState<Info>({ next: 1 });
 
   useEffect(() => {
     fetchLocations(locationName, characterName, episodeName, page).then(
       (_locations) => {
+        setCurrentPageInfo(_locations.locations?.info as Info);
         setLocations(_locations.locations?.results as gqlLocation[]);
         console.log("locations fetched", _locations.locations);
       }
@@ -38,6 +41,7 @@ export default function Locations() {
 
     fetchLocations(locationName, characterName, episodeName, page).then(
       (_locations) => {
+        setCurrentPageInfo(_locations.locations?.info as Info);
         const newList = [
           ...locations,
           ...(_locations.locations?.results as gqlLocation[]),
@@ -58,7 +62,7 @@ export default function Locations() {
             ></LocationCard>
           ))}
 
-          <div ref={ref}>Loading...</div>
+          {currentPageInfo?.next && <div ref={ref}>Loading...</div>}
         </div>
       </div>
     </>
