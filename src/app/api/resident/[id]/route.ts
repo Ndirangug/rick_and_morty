@@ -1,10 +1,8 @@
 import { Character, CharcterQueryDocument, CharcterQueryQueryVariables } from '@/app/_graphql/types/graphql';
 import { rickAndMortyEndpoint } from '@/config';
-import { initializeApp } from 'firebase-admin/app';
 import { request as gqlRequest } from 'graphql-request';
 import { NextRequest } from 'next/server';
 
-const app = initializeApp();
 
 interface CharacterWithNotes extends Character {
     notes?: String
@@ -24,7 +22,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
         const character = (await gqlRequest(rickAndMortyEndpoint, CharcterQueryDocument, variables)).character as Character
 
-        return Response.json({ data: character })
+        return Response.json({ character })
     } catch (error) {
         return Response.json({ error: error }, { status: 500 })
     }
