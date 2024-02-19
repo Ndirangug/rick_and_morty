@@ -13,6 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "query CharcterQuery($id: ID!) {\n  character(id: $id) {\n    id\n    name\n    status\n    species\n    type\n    gender\n    origin {\n      id\n      name\n      type\n      dimension\n      created\n    }\n    location {\n      id\n      name\n      type\n      dimension\n      created\n    }\n    image\n    episode {\n      id\n      name\n      air_date\n      episode\n      created\n    }\n    created\n  }\n}": types.CharcterQueryDocument,
     "query LocationsByCharacterQuery($page: Int, $name: String) {\n  characters(page: $page, filter: {name: $name}) {\n    info {\n      pages\n      count\n      next\n      prev\n    }\n    results {\n      image\n      id\n      name\n      status\n      location {\n        id\n        name\n        type\n      }\n    }\n  }\n}": types.LocationsByCharacterQueryDocument,
     "query LocationsByEpisodeQuery($page: Int, $name: String) {\n  episodes(page: $page, filter: {name: $name}) {\n    info {\n      pages\n      count\n      next\n      prev\n    }\n    results {\n      characters {\n        image\n        id\n        name\n        status\n        location {\n          id\n          name\n          type\n        }\n      }\n    }\n  }\n}": types.LocationsByEpisodeQueryDocument,
     "query LocationsQuery($page: Int, $name: String) {\n  locations(page: $page, filter: {name: $name}) {\n    info {\n      pages\n      count\n      next\n      prev\n    }\n    results {\n      id\n      name\n      type\n      residents {\n        image\n        id\n        name\n        status\n      }\n    }\n  }\n}": types.LocationsQueryDocument,
@@ -32,6 +33,10 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query CharcterQuery($id: ID!) {\n  character(id: $id) {\n    id\n    name\n    status\n    species\n    type\n    gender\n    origin {\n      id\n      name\n      type\n      dimension\n      created\n    }\n    location {\n      id\n      name\n      type\n      dimension\n      created\n    }\n    image\n    episode {\n      id\n      name\n      air_date\n      episode\n      created\n    }\n    created\n  }\n}"): (typeof documents)["query CharcterQuery($id: ID!) {\n  character(id: $id) {\n    id\n    name\n    status\n    species\n    type\n    gender\n    origin {\n      id\n      name\n      type\n      dimension\n      created\n    }\n    location {\n      id\n      name\n      type\n      dimension\n      created\n    }\n    image\n    episode {\n      id\n      name\n      air_date\n      episode\n      created\n    }\n    created\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
