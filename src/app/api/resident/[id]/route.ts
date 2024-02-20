@@ -13,7 +13,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         const id = params.id
 
         if (!id) {
-            Response.json({ error: "Expected param id to be a number" }, { status: 400 })
+            Response.json({ error: "Parameter id is required" }, { status: 400 })
         }
 
         const variables: CharcterQueryQueryVariables = {
